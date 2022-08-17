@@ -28,7 +28,8 @@ export default {
         this.$emit('addPhoto', photo)
       }
       reader.readAsDataURL(this.img)
-
+      this.title = ''
+      this.img = null
     }
   }
 }

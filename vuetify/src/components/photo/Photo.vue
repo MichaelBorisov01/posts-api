@@ -1,6 +1,12 @@
 <template>
   <v-col cols="4">
     <v-card @click="openPhoto">
+      <div>
+        <button class="btn"
+                @click="$emit('remove',photo)">
+          Delete
+        </button>
+      </div>
       <v-card-title>
         {{ photo.title }}
       </v-card-title>
@@ -33,5 +39,10 @@ export default {
 </script>
 
 <style scoped>
-
+.btn {
+  padding: 10px 15px;
+  background: none;
+  color: black;
+  border: 2px solid black;
+}
 </style>

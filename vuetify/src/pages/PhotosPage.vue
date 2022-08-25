@@ -2,7 +2,14 @@
   <v-container>
     <PhotoForm @addPhoto="addPhoto"/>
     <v-row>
-      <Photo @openPhoto='openPhoto' class="photo" :photo="photo" v-for="photo in photos"/>
+      <Photo
+          @openPhoto='openPhoto'
+          @remove="removePhoto"
+          class="photo"
+          :photo="photo"
+          v-for="photo in photos"
+          :key="photo.id"
+      />
     </v-row>
     <PhotoDialog :photo="currentPhoto" v-model="dialogVisible"/>
   </v-container>
@@ -34,6 +41,9 @@ export default {
     openPhoto(photo) {
       this.currentPhoto = photo
       this.dialogVisible = true
+    },
+    removePhoto(photo) {
+      this.photos = this.photos.filter(p => p.id !== photo.id)
     }
   },
 

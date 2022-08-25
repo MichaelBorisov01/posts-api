@@ -45,4 +45,5 @@ export default {
   color: black;
   border: 2px solid black;
 }
+
 </style>

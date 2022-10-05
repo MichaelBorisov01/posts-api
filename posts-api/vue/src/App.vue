@@ -2,6 +2,6 @@
 
 </template>
 
-<style>
+<script>
 
-</style>
+</script>

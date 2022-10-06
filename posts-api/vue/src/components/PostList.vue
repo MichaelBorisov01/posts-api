@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h3 style="padding: 10px">Список постов</h3>
+    <h3>Список постов</h3>
     <transition-group name="post-list">
       <post-item
           v-for="post in posts"
           :post="post"
           :key="post.id"
+          @remove="$emit('remove', post)"
       />
     </transition-group>
 

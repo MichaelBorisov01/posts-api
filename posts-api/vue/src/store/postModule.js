@@ -40,6 +40,10 @@ export const postModule = {
                 commit('setLoading', false)
             }
         },
+
+        removePost({state, commit}, post) {
+            commit('setPosts', state.posts.filter(p => p.id !== post.id))
+        },
     },
 
     namespaced: true

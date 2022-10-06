@@ -7,6 +7,7 @@
 
     <v-main>
       <post-list :posts="posts"
+                 @remove="removePost"
                  v-if="!isPostLoading"/>
       <div v-else><h3>Loading...</h3></div>
     </v-main>
@@ -26,6 +27,7 @@ export default {
     }),
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
+      removePost: 'post/removePost',
     })
   },
 
@@ -48,3 +50,17 @@ export default {
   },
 }
 </script>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  padding: 15px;
+}
+
+</style>

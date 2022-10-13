@@ -7,6 +7,7 @@ export const postModule = {
         totalPages: 0,
         page: 1,
         limit: 10,
+        dialog: false,
     }),
 
     getters: {},
@@ -20,6 +21,9 @@ export const postModule = {
         setTotalPages(state, totalPages) {
             state.totalPages = totalPages
         },
+        setDialog(state, bool) {
+            state.dialog = bool
+        }
     },
     actions: {
         async fetchPosts({state, commit}) {
@@ -35,7 +39,7 @@ export const postModule = {
                 commit('setPosts', response.data)
                 return response.data
             } catch (e) {
-                alert('Some mistake')
+                alert('Ошибка')
             } finally {
                 commit('setLoading', false)
             }
@@ -43,6 +47,13 @@ export const postModule = {
 
         removePost({state, commit}, post) {
             commit('setPosts', state.posts.filter(p => p.id !== post.id))
+        },
+        createPost({state, commit}, post) {
+            state.posts.push(post)
+
+        },
+        hideDialog({commit}) {
+            commit('setDialog', false)
         },
     },
 

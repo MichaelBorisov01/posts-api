@@ -1,9 +1,11 @@
 <template>
   <v-card class="post" elevation="5">
     <v-card-text>
-      <div>{{ post.id }}</div>
-      <div><strong>Название:</strong> {{ post.title }}</div>
-      <div><strong>Описание:</strong> {{ post.body }}</div>
+      <v-col>
+        <div>{{ post.id }}</div>
+        <div><strong>Название:</strong> {{ post.title }}</div>
+        <div><strong>Описание:</strong> {{ post.body }}</div>
+      </v-col>
     </v-card-text>
 
     <v-card-actions>

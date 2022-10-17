@@ -8,9 +8,28 @@ export const postModule = {
         page: 1,
         limit: 10,
         dialog: false,
+        selectedSort: '',
+        selectedSortId: Number,
+        sortOptions: [
+            {value: 'title', name: 'По названию'},
+            {value: 'body', name: 'По описанию'},
+            {value: 'id', name: 'По ID'},
+        ]
     }),
 
-    getters: {},
+    getters: {
+        sortedPosts(state) {
+            if (state.selectedSort === 'id') {
+                return [...state.posts].sort((post1, post2) =>
+                    post1[state.selectedSortId]?.localeCompare(post2[state.selectedSortId])
+                )
+            } else {
+                return [...state.posts].sort((post1, post2) =>
+                    post1[state.selectedSort]?.localeCompare(post2[state.selectedSort])
+                )
+            }
+        },
+    },
     mutations: {
         setPosts(state, posts) {
             state.posts = posts
@@ -23,7 +42,10 @@ export const postModule = {
         },
         setDialog(state, bool) {
             state.dialog = bool
-        }
+        },
+        setSelectedSort(state, selectedSort) {
+            state.selectedSort = selectedSort
+        },
     },
     actions: {
         async fetchPosts({state, commit}) {

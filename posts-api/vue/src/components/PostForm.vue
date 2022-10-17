@@ -7,11 +7,9 @@
       <v-col>
         <v-text-field
             v-model="post.title"
-            @keydown.enter="hideDialog"
             label="Название"/>
         <v-text-field
             v-model="post.body"
-            @keydown.enter="hideDialog"
             label="Описание"
         />
         <v-btn
@@ -27,7 +25,6 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
 
 export default {
   data() {
@@ -40,10 +37,6 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      hideDialog: 'post/hideDialog'
-    }),
-
     createPost() {
       this.post.id = Date.now()
       this.$emit('create', this.post)
@@ -52,7 +45,7 @@ export default {
         body: '',
       }
     },
-  }
+  },
 }
 </script>
 

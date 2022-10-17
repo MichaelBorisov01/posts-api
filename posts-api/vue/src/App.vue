@@ -6,8 +6,6 @@
       <div class="text-center">
         <v-dialog
             v-model="dialog"
-            min-width="300px"
-            min-height="50px"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -27,7 +25,17 @@
     </v-app-bar>
 
     <v-main>
-      <post-list :posts="posts"
+      <v-select
+          v-model="selectedSort"
+          @change="setSelectedSort"
+          :items="sortOptions"
+          item-text="name"
+          item-value="value"
+          label="Сортировать"
+          dense
+          solo
+      ></v-select>
+      <post-list :posts="sortedPosts"
                  @remove="removePost"
                  v-if="!isPostLoading"/>
       <div v-else><h3>Загрузка данных...</h3></div>
@@ -43,16 +51,11 @@ import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
 export default {
   components: {PostList, PostForm},
 
-  /*data() {
-    return {
-      dialog: false
-    }
-  },*/
-
   methods: {
     ...mapMutations({
       setPosts: 'post/setPosts',
-      setDialog:'post/setDialog'
+      setDialog: 'post/setDialog',
+      setSelectedSort: 'post/setSelectedSort',
     }),
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
@@ -72,9 +75,14 @@ export default {
       page: state => state.post.page,
       limit: state => state.post.limit,
       totalPages: state => state.post.totalPages,
-      dialog: state => state.post.dialog
+      dialog: state => state.post.dialog,
+      selectedSort: state => state.post.selectedSort,
+      selectedSortId: state => state.post.selectedSortId,
+      sortOptions: state => state.post.sortOptions
     }),
-    ...mapGetters({})
+    ...mapGetters({
+      sortedPosts: 'post/sortedPosts',
+    })
 
   },
 }
@@ -95,4 +103,5 @@ export default {
 .create-btn {
   margin-left: 30px;
 }
+
 </style>

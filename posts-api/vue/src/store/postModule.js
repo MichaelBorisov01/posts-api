@@ -14,7 +14,8 @@ export const postModule = {
             {value: 'title', name: 'По названию'},
             {value: 'body', name: 'По описанию'},
             {value: 'id', name: 'По ID'},
-        ]
+        ],
+        searchQuery: '',
     }),
 
     getters: {
@@ -29,6 +30,10 @@ export const postModule = {
                 )
             }
         },
+        sortedAndSearchedPosts(state, getters) {
+            return getters.sortedPosts.filter(post => post.title.toLowerCase().includes(state.searchQuery.toLowerCase()
+            ))
+        }
     },
     mutations: {
         setPosts(state, posts) {
@@ -45,6 +50,9 @@ export const postModule = {
         },
         setSelectedSort(state, selectedSort) {
             state.selectedSort = selectedSort
+        },
+        setSearchQuery(state, searchQuery) {
+            state.searchQuery = searchQuery
         },
     },
     actions: {
@@ -73,9 +81,6 @@ export const postModule = {
         createPost({state, commit}, post) {
             state.posts.push(post)
 
-        },
-        hideDialog({commit}) {
-            commit('setDialog', false)
         },
     },
 

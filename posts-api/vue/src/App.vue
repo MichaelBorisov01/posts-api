@@ -6,6 +6,7 @@
       <div class="text-center">
         <v-dialog
             v-model="dialog"
+            max-width="300px"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -22,10 +23,19 @@
           <post-form @create="createPost"/>
         </v-dialog>
       </div>
-    </v-app-bar>
 
-    <v-main>
+      <v-text-field
+          v-model="searchQuery"
+          @input="setSearchQuery"
+          outlined
+          clearable
+          label="Поиск по названию..."
+          rounded
+          style="max-width: 500px; margin: auto"
+      />
+
       <v-select
+          style="max-width: 170px; text-align: right; margin-top: 30px"
           v-model="selectedSort"
           @change="setSelectedSort"
           :items="sortOptions"
@@ -35,11 +45,18 @@
           dense
           solo
       ></v-select>
-      <post-list :posts="sortedPosts"
+    </v-app-bar>
+
+    <v-main>
+
+      <post-list :posts="sortedAndSearchedPosts"
                  @remove="removePost"
                  v-if="!isPostLoading"/>
       <div v-else><h3>Загрузка данных...</h3></div>
     </v-main>
+    <v-bottom-navigation>
+
+    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -56,6 +73,7 @@ export default {
       setPosts: 'post/setPosts',
       setDialog: 'post/setDialog',
       setSelectedSort: 'post/setSelectedSort',
+      setSearchQuery: 'post/setSearchQuery',
     }),
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
@@ -78,10 +96,11 @@ export default {
       dialog: state => state.post.dialog,
       selectedSort: state => state.post.selectedSort,
       selectedSortId: state => state.post.selectedSortId,
-      sortOptions: state => state.post.sortOptions
+      sortOptions: state => state.post.sortOptions,
+      searchQuery: state => state.post.searchQuery,
     }),
     ...mapGetters({
-      sortedPosts: 'post/sortedPosts',
+      sortedAndSearchedPosts: 'post/sortedAndSearchedPosts'
     })
 
   },
@@ -90,14 +109,8 @@ export default {
 
 <style>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .app {
-  padding: 15px;
+  padding: 20px;
 }
 
 .create-btn {

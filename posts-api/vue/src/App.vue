@@ -1,6 +1,5 @@
 <template>
   <v-app class="app">
-
     <v-app-bar app class="bar">
       <h1>Страница с постами</h1>
       <div class="text-center">
@@ -28,7 +27,6 @@
           v-model="searchQuery"
           @input="setSearchQuery"
           outlined
-          clearable
           label="Поиск по названию..."
           rounded
           style="max-width: 500px; margin: auto"
@@ -48,14 +46,20 @@
     </v-app-bar>
 
     <v-main>
-
       <post-list :posts="sortedAndSearchedPosts"
                  @remove="removePost"
                  v-if="!isPostLoading"/>
       <div v-else><h3>Загрузка данных...</h3></div>
     </v-main>
-    <v-bottom-navigation>
-
+    <v-bottom-navigation class="bottom">
+      <div class="text-center">
+        <v-pagination
+            v-model="page"
+            :length="10"
+            circle
+            @input="changePage"
+        ></v-pagination>
+      </div>
     </v-bottom-navigation>
   </v-app>
 </template>
@@ -74,11 +78,13 @@ export default {
       setDialog: 'post/setDialog',
       setSelectedSort: 'post/setSelectedSort',
       setSearchQuery: 'post/setSearchQuery',
+      setPage: 'post/setPage',
     }),
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
       removePost: 'post/removePost',
       createPost: 'post/createPost',
+      changePage: 'post/changePage'
     }),
   },
 
@@ -102,8 +108,13 @@ export default {
     ...mapGetters({
       sortedAndSearchedPosts: 'post/sortedAndSearchedPosts'
     })
-
   },
+
+  watch: {
+    page() {
+      this.fetchPosts()
+    }
+  }
 }
 </script>
 
@@ -117,4 +128,7 @@ export default {
   margin-left: 30px;
 }
 
+.bottom {
+  margin-top: 15px;
+}
 </style>

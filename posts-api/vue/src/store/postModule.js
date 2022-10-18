@@ -54,6 +54,9 @@ export const postModule = {
         setSearchQuery(state, searchQuery) {
             state.searchQuery = searchQuery
         },
+        setPage(state, page) {
+            state.page = page
+        },
     },
     actions: {
         async fetchPosts({state, commit}) {
@@ -80,7 +83,9 @@ export const postModule = {
         },
         createPost({state, commit}, post) {
             state.posts.push(post)
-
+        },
+        changePage({commit}, pageNumber) {
+            commit('setPage', pageNumber)
         },
     },
 

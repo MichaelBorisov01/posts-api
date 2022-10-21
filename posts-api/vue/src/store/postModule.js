@@ -16,6 +16,10 @@ export const postModule = {
             {value: 'id', name: 'По ID'},
         ],
         searchQuery: '',
+        items: [
+            {title: 'Посты', icon: '1', path: '/post'},
+            {title: 'Пользователи', icon: '2', path: '/user'}
+        ],
     }),
 
     getters: {

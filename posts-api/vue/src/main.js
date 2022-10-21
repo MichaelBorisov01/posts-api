@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 import App from './App.vue'
-import AppPost from './AppPost.vue'
-import AppUser from './AppUser.vue'
+import AppPost from './pages/Posts.vue'
+import AppUser from './pages/Users.vue'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
@@ -23,7 +23,7 @@ new Vue({
     router,
     store,
     vuetify,
-    render: h => h(App)
+    render: h => h(App),
 }).$mount('#app')
 
 

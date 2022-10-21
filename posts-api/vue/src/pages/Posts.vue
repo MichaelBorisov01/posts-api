@@ -44,29 +44,32 @@
           solo
       ></v-select>
     </v-app-bar>
+    <v-parallax height="auto" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+      <v-main>
 
-    <v-main>
-      <post-list :posts="sortedAndSearchedPosts"
-                 @remove="removePost"
-                 v-if="!isPostLoading"/>
-      <div v-else><h3>Загрузка данных...</h3></div>
-    </v-main>
-    <v-bottom-navigation class="bottom">
-      <div class="text-center">
-        <v-pagination
-            v-model="page"
-            :length="10"
-            circle
-            @input="changePage"
-        ></v-pagination>
-      </div>
-    </v-bottom-navigation>
+        <post-list :posts="sortedAndSearchedPosts"
+                   @remove="removePost"
+                   v-if="!isPostLoading"/>
+        <div v-else><h3>Загрузка данных...</h3></div>
+      </v-main>
+      <v-bottom-navigation class="bottom">
+        <div class="text-center">
+          <v-pagination
+              v-model="page"
+              :length="10"
+              circle
+              @input="changePage"
+          ></v-pagination>
+        </div>
+      </v-bottom-navigation>
+    </v-parallax>
+
   </v-app>
 </template>
 
 <script>
-import PostForm from '@/components/PostForm.vue'
-import PostList from '@/components/PostList.vue'
+import PostForm from '@/components/post/PostForm.vue'
+import PostList from '@/components/post/PostList.vue'
 import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
 
 export default {

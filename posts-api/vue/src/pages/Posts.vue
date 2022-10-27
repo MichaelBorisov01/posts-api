@@ -1,52 +1,37 @@
 <template>
   <v-app>
-    <v-app-bar app class="bar">
-      <h1>Страница с постами</h1>
-      <div class="text-center">
-        <v-dialog
-            v-model="dialog"
-            max-width="300px"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-                class="create-btn"
-                text
-                color="success"
-                rounded
-                v-bind="attrs"
-                v-on="on"
-            >
-              Создать пост
-            </v-btn>
-          </template>
-          <post-form @create="createPost"/>
-        </v-dialog>
-      </div>
-
-      <v-text-field
-          v-model="searchQuery"
-          @input="setSearchQuery"
-          outlined
-          label="Поиск по названию..."
-          rounded
-          style="max-width: 500px; margin: auto"
-      />
-
-      <v-select
-          style="max-width: 170px; text-align: right; margin-top: 30px"
-          v-model="selectedSort"
-          @change="setSelectedSort"
-          :items="sortOptions"
-          item-text="name"
-          item-value="value"
-          label="Сортировать"
-          dense
-          solo
-      ></v-select>
-    </v-app-bar>
-    <v-parallax height="auto" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
       <v-main>
+        <div>
+          <v-dialog v-model="dialog">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  class="create-btn"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                Создать пост
+              </v-btn>
+            </template>
+            <post-form @create="createPost"/>
+          </v-dialog>
+        </div>
 
+        <v-text-field
+            v-model="searchQuery"
+            @input="setSearchQuery"
+            outlined
+            label="Поиск по названию..."
+        />
+
+        <v-select
+            v-model="selectedSort"
+            @change="setSelectedSort"
+            :items="sortOptions"
+            item-text="name"
+            item-value="value"
+            label="Сортировать"
+            solo
+        ></v-select>
         <post-list :posts="sortedAndSearchedPosts"
                    @remove="removePost"
                    v-if="!isPostLoading"/>
@@ -57,12 +42,10 @@
           <v-pagination
               v-model="page"
               :length="10"
-              circle
               @input="changePage"
           ></v-pagination>
         </div>
       </v-bottom-navigation>
-    </v-parallax>
 
   </v-app>
 </template>

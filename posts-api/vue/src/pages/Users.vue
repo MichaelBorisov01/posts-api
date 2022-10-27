@@ -1,17 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app class="bar">
-      <h1>Страница с пользователями</h1>
-    </v-app-bar>
-    <v-parallax
-        height="auto"
-        src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-    >
-      <v-main>
-        <user-grid :users="users"/>
-      </v-main>
-
-    </v-parallax>
+    <v-main>
+      <user-grid :users="users"/>
+    </v-main>
   </v-app>
 </template>
 

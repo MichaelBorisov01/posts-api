@@ -10,9 +10,6 @@
 
     <v-card-actions>
       <v-btn
-          text
-          color="error"
-          rounded
           @click="$emit('remove', post)">
         Удалить
       </v-btn>

@@ -13,9 +13,6 @@
             label="Описание"
         />
         <v-btn
-            text
-            color="success"
-            rounded
             @click="createPost"
         >Готово
         </v-btn>

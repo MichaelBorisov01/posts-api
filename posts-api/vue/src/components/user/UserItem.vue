@@ -6,8 +6,6 @@
           <v-menu transition="scale-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="success"
-                  rounded
                   v-bind="attrs"
                   v-on="on"
                   style="margin:15px 0 15px"

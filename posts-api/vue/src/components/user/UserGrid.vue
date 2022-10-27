@@ -1,18 +1,20 @@
 <template>
   <div>
     <h3>Список пользователей</h3>
-    <v-container>
-      <v-row>
-        <v-col
-            v-for="user in users"
-            :user="user"
-        >
-          <user-item
+    <v-container style="text-align: center">
+
+        <v-row>
+          <v-col
+              v-for="user in users"
               :user="user"
-              :key="user.id"
-          />
-        </v-col>
-      </v-row>
+          >
+            <user-item
+                :user="user"
+                :key="user.id"
+            />
+          </v-col>
+        </v-row>
+
     </v-container>
   </div>
 </template>

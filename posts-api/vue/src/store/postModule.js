@@ -2,11 +2,13 @@ import axios from "axios";
 
 export const postModule = {
     state: () => ({
+        users: [],
         posts: [],
         isPostLoading: false,
         totalPages: 0,
         page: 1,
-        limit: 10,
+        limitUser: 9,
+        limitPost: 10,
         dialog: false,
         selectedSort: '',
         selectedSortId: Number,
@@ -18,7 +20,7 @@ export const postModule = {
         searchQuery: '',
         items: [
             {title: 'Посты', icon: '1', path: '/post'},
-            {title: 'Пользователи', icon: '2', path: '/user'}
+            {title: 'Пользователи', icon: `2`, path: '/user'}
         ],
     }),
 
@@ -34,14 +36,20 @@ export const postModule = {
                 )
             }
         },
-        sortedAndSearchedPosts(state, getters) {
-            return getters.sortedPosts.filter(post => post.title.toLowerCase().includes(state.searchQuery.toLowerCase()
-            ))
+        sortedAndSearchedPostsAndUsers(state, getters) {
+            let postsAndUsers = []
+            let users = [...state.users].filter(user => user.name.toLowerCase().includes(state.searchQuery.toLowerCase()))
+            let posts = getters.sortedPosts.filter(post => post.title.toLowerCase().includes(state.searchQuery.toLowerCase()))
+            postsAndUsers.push(posts,users)
+            return postsAndUsers
         }
     },
     mutations: {
         setPosts(state, posts) {
             state.posts = posts
+        },
+        setUsers(state, users) {
+            state.users = users
         },
         setLoading(state, bool) {
             state.isPostLoading = bool
@@ -72,13 +80,29 @@ export const postModule = {
                         _limit: state.limit
                     }
                 })
-                commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit))
+                commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitPost))
                 commit('setPosts', response.data)
                 return response.data
             } catch (e) {
                 alert('Ошибка')
             } finally {
                 commit('setLoading', false)
+            }
+        },
+
+        async fetchUsers({state, commit}) {
+            try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/users', {
+                    params: {
+                        _page: state.page,
+                        _limit: state.limit
+                    }
+                })
+                commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitUser))
+                commit('setUsers', response.data)
+                return Array.from(response.data)
+            } catch (e) {
+                alert('Ошибка')
             }
         },
 

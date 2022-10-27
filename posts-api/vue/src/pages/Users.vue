@@ -1,33 +1,35 @@
 <template>
   <v-app>
     <v-main>
-      <user-grid :users="users"/>
+      <user-grid :users="sortedAndSearchedPostsAndUsers[1]"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import UserGrid from "@/components/user/UserGrid";
-import {mapActions, mapMutations, mapState} from "vuex";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
   components: {UserGrid},
 
   methods: {
     ...mapMutations({
-      setUsers: 'user/setUsers',
+      setUsers: 'post/setUsers',
     }),
     ...mapActions({
-      fetchUsers: 'user/fetchUsers',
+      fetchUsers: 'post/fetchUsers',
     }),
   },
 
   computed: {
     ...mapState({
-      users: state => state.user.users,
-      limit: state => state.user.limit,
-      totalPages: state => state.user.totalPages,
+      users: state => state.post.users,
     }),
+
+    ...mapGetters({
+      sortedAndSearchedPostsAndUsers: 'post/sortedAndSearchedPostsAndUsers'
+    })
   },
 
   mounted() {

@@ -1,6 +1,24 @@
 <template>
   <v-app class="app">
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = drawer ? !drawer : drawer = true"></v-app-bar-nav-icon>
 
+      <v-toolbar-title>post-api</v-toolbar-title>
+
+        <v-text-field
+            solo
+            dense
+            rounded
+            clearable
+            prepend-inner-icon="mdi-magnify"
+            v-model="searchQuery"
+            @input="setSearchQuery"
+            outlined
+            label="Поиск по названию..."
+            style="max-width: 500px; margin: 8px auto auto;"
+        />
+
+    </v-app-bar>
     <v-navigation-drawer
         app
         v-model="drawer"
@@ -8,7 +26,7 @@
       <v-list dense nav>
         <v-list-item-group
             v-model="group"
-            active-class="deep-purple--text text--accent-4"
+            active-class="deep-blue--text text--accent-4"
         >
           <v-list-item
               v-for="item in items"
@@ -25,31 +43,33 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-        app
-        color="deep-purple"
-        dark
-    >
-      <v-app-bar-nav-icon @click="drawer = drawer ? !drawer : drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>post-api</v-toolbar-title>
-    </v-app-bar>
     <router-view></router-view>
+
   </v-app>
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
-  data: () => ({
-    drawer: false,
-    group: null,
-  }),
+  data() {
+    return {
+      drawer: false,
+      group: null,
+    }
+  },
+
+  methods: {
+    ...mapMutations({
+      setSearchQuery: 'post/setSearchQuery',
+    }),
+  },
 
   computed: {
     ...mapState({
       items: state => state.post.items,
+      searchQuery: state => state.post.searchQuery,
     }),
   },
 }

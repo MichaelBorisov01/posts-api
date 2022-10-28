@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Список постов</h3>
+
     <transition-group name="post-list">
       <post-item
           v-for="post in posts"

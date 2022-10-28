@@ -1,17 +1,18 @@
 <template>
   <v-app>
     <v-main>
-      <user-grid :users="sortedAndSearchedPostsAndUsers[1]"/>
+      <user-data-table :users="sortedAndSearchedPostsAndUsers[1]"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import UserGrid from "@/components/user/UserGrid";
+import UserDataTable from "@/components/user/UserDataTable";
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
-  components: {UserGrid},
+  components: {UserDataTable, UserGrid},
 
   methods: {
     ...mapMutations({

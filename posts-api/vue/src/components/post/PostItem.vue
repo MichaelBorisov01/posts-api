@@ -1,5 +1,5 @@
 <template>
-  <v-card class="post" elevation="5">
+  <v-card class="post" elevation="3">
     <v-card-text>
       <v-col>
         <div>{{ post.id }}</div>

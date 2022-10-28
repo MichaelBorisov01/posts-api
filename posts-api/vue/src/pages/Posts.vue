@@ -2,31 +2,36 @@
   <v-app>
 
     <v-main>
-      <div>
-        <v-dialog v-model="dialog">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-                class="create-btn"
-                v-bind="attrs"
-                v-on="on"
-            >
-              Создать пост
-            </v-btn>
-          </template>
-          <post-form @create="createPost"/>
-        </v-dialog>
-      </div>
+      <v-row>
+        <h3 style="margin: 20px">Список постов</h3>
+        <div style="margin: auto">
+          <v-dialog width="500" v-model="dialog">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  class="create-btn"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                Создать пост
+              </v-btn>
+            </template>
+            <post-form style="width: 500px" @create="createPost"/>
+          </v-dialog>
+        </div>
 
+          <v-select
+              v-model="selectedSort"
+              @change="setSelectedSort"
+              :items="sortOptions"
+              item-text="name"
+              item-value="value"
+              label="Сортировать"
+              solo
+              dense
+              style="max-width: 170px; margin-top: 15px; margin-right: 10px"
+          ></v-select>
 
-      <v-select
-          v-model="selectedSort"
-          @change="setSelectedSort"
-          :items="sortOptions"
-          item-text="name"
-          item-value="value"
-          label="Сортировать"
-          solo
-      ></v-select>
+      </v-row>
       <post-list :posts="sortedAndSearchedPostsAndUsers[0]"
                  @remove="removePost"
                  v-if="!isPostLoading"/>

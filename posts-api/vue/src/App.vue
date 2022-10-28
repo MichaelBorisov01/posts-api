@@ -1,7 +1,7 @@
 <template>
   <v-app class="app">
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = drawer ? !drawer : drawer = true"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>post-api</v-toolbar-title>
 

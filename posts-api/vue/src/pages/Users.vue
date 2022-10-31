@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import UserGrid from "@/components/user/UserGrid";
 import UserDataTable from "@/components/user/UserDataTable";
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
-  components: {UserDataTable, UserGrid},
+  components: {UserDataTable},
 
   methods: {
     ...mapMutations({

@@ -4,7 +4,7 @@
         :headers="headers"
         :items="users"
         item-key="name"
-        class="elevation-1"
+        class="elevation-2"
         :search="searchQuery"
     >
       <template v-slot:body.append>

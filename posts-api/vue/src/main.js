@@ -6,6 +6,7 @@ import AppUser from './pages/Users.vue'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
+
 Vue.use(VueRouter)
 
 const routes = [

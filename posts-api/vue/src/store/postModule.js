@@ -9,7 +9,6 @@ export const postModule = {
         page: 1,
         limitUser: 9,
         limitPost: 10,
-        dialog: false,
         selectedSort: '',
         selectedSortId: Number,
         sortOptions: [
@@ -40,7 +39,7 @@ export const postModule = {
             let postsAndUsers = []
             let users = [...state.users].filter(user => user.name.toLowerCase().includes(state.searchQuery.toLowerCase()))
             let posts = getters.sortedPosts.filter(post => post.title.toLowerCase().includes(state.searchQuery.toLowerCase()))
-            postsAndUsers.push(posts,users)
+            postsAndUsers.push(posts, users)
             return postsAndUsers
         }
     },
@@ -56,9 +55,6 @@ export const postModule = {
         },
         setTotalPages(state, totalPages) {
             state.totalPages = totalPages
-        },
-        setDialog(state, bool) {
-            state.dialog = bool
         },
         setSelectedSort(state, selectedSort) {
             state.selectedSort = selectedSort

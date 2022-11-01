@@ -1,35 +1,22 @@
 <template>
   <v-app>
-
     <v-main>
       <v-row>
         <h3 style="margin: 20px">Список постов</h3>
-        <div style="margin: auto">
-          <v-dialog width="500" v-model="dialog">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="create-btn"
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                Создать пост
-              </v-btn>
-            </template>
-            <post-form style="width: 500px" @create="createPost"/>
-          </v-dialog>
-        </div>
 
-          <v-select
-              v-model="selectedSort"
-              @change="setSelectedSort"
-              :items="sortOptions"
-              item-text="name"
-              item-value="value"
-              label="Сортировать"
-              solo
-              dense
-              style="max-width: 170px; margin-top: 15px; margin-right: 10px"
-          ></v-select>
+        <post-form style="width: 500px" @create="createPost"/>
+
+        <v-select
+            v-model="selectedSort"
+            @change="setSelectedSort"
+            :items="sortOptions"
+            item-text="name"
+            item-value="value"
+            label="Сортировать"
+            solo
+            dense
+            style="max-width: 170px; margin-top: 15px; margin-right: 10px"
+        ></v-select>
 
       </v-row>
       <post-list :posts="sortedAndSearchedPostsAndUsers[0]"
@@ -61,7 +48,6 @@ export default {
   methods: {
     ...mapMutations({
       setPosts: 'post/setPosts',
-      setDialog: 'post/setDialog',
       setSelectedSort: 'post/setSelectedSort',
       setPage: 'post/setPage',
     }),
@@ -83,7 +69,6 @@ export default {
       isPostLoading: state => state.post.isPostLoading,
       page: state => state.post.page,
       totalPages: state => state.post.totalPages,
-      dialog: state => state.post.dialog,
       selectedSort: state => state.post.selectedSort,
       selectedSortId: state => state.post.selectedSortId,
       sortOptions: state => state.post.sortOptions,
@@ -103,10 +88,6 @@ export default {
 </script>
 
 <style>
-
-.create-btn {
-  margin-left: 30px;
-}
 
 .bottom {
   margin-top: 15px;

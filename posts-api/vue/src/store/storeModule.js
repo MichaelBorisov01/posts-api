@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const postModule = {
+export const storeModule = {
     state: () => ({
         users: [],
         posts: [],
@@ -107,6 +107,9 @@ export const postModule = {
         },
         createPost({state, commit}, post) {
             state.posts.push(post)
+        },
+        createUser({state, commit}, user) {
+            state.users.push(user)
         },
         changePage({commit}, pageNumber) {
             commit('setPage', pageNumber)

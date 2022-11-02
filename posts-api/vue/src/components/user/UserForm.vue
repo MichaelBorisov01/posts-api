@@ -7,12 +7,12 @@
             v-bind="attrs"
             v-on="on"
         >
-          Создать пост
+          Создать пользователя
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <h3>Создание поста</h3>
+          <h3>Создание пользователя</h3>
         </v-card-title>
         <v-card-actions>
           <v-form
@@ -22,19 +22,35 @@
           >
             <v-text-field
                 class="text-field"
-                v-model="post.title"
-                label="Название"
+                v-model="user.name"
+                label="Имя"
                 :rules="[rules.required]"
             />
             <v-text-field
                 class="text-field"
-                v-model="post.body"
-                label="Описание"
+                v-model="user.username"
+                label="Username"
+            />
+            <v-text-field
+                class="text-field"
+                v-model="user.email"
+                label="Email"
                 :rules="[rules.required]"
+            />
+            <v-text-field
+                class="text-field"
+                v-model="user.phone"
+                label="Телефон"
+                :rules="[rules.required]"
+            />
+            <v-text-field
+                class="text-field"
+                v-model="user.website"
+                label="Website"
             />
             <v-btn
                 class="done-btn"
-                @click="createPost"
+                @click="createUser"
             >Готово
             </v-btn>
           </v-form>
@@ -43,15 +59,18 @@
     </v-dialog>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   data() {
     return {
       dialog: false,
-      post: {
-        title: 'Мой пост',
-        body: '',
+      user: {
+        name: '',
+        username: '',
+        email: '',
+        phone: '',
+        website: ''
       },
       rules: {
         required: value => !!value || 'Обязательное поле',
@@ -60,14 +79,17 @@ export default {
   },
 
   methods: {
-    createPost() {
+    createUser() {
       if (this.$refs.form.validate()) {
         this.dialog = false
-        this.post.id = Date.now()
-        this.$emit('create', this.post)
-        this.post = {
-          title: '',
-          body: '',
+        this.user.id = Date.now()
+        this.$emit('create', this.user)
+        this.user = {
+          name: '',
+          username: '',
+          email: '',
+          phone: '',
+          website: ''
         }
       }
     }
@@ -81,6 +103,6 @@ export default {
 }
 
 .create-btn {
-  margin: 10px;
+  margin-bottom: 10px;
 }
 </style>

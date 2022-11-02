@@ -1,17 +1,19 @@
 <template>
   <v-app>
     <v-main>
+      <user-form @create="createUser"/>
       <user-data-table :users="sortedAndSearchedPostsAndUsers[1]"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import UserForm from "@/components/user/UserForm.vue";
 import UserDataTable from "@/components/user/UserDataTable";
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
-  components: {UserDataTable},
+  components: {UserDataTable, UserForm},
 
   methods: {
     ...mapMutations({
@@ -19,6 +21,7 @@ export default {
     }),
     ...mapActions({
       fetchUsers: 'post/fetchUsers',
+      createUser: 'post/createUser'
     }),
   },
 

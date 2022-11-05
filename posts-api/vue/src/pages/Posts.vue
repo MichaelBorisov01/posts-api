@@ -3,19 +3,18 @@
     <v-main>
       <v-row>
         <post-form @create="createPost"/>
-        <div style=" ">
-          <v-select
-              class="select"
-              v-model="selectedSort"
-              @change="setSelectedSort"
-              :items="sortOptions"
-              item-text="name"
-              item-value="value"
-              label="Сортировать"
-              solo
-              dense
-          />
-        </div>
+        <v-select
+            class="select"
+            style="margin: 10px auto auto 20px"
+            v-model="selectedSort"
+            @change="setSelectedSort"
+            :items="sortOptions"
+            item-text="name"
+            item-value="value"
+            label="Сортировать"
+            solo
+            dense
+        />
       </v-row>
       <post-list :posts="sortedAndSearchedPostsAndUsers[0]"
                  @remove="removePost"
@@ -88,9 +87,6 @@ export default {
 <style>
 .select {
   max-width: 170px;
-  position: fixed;
-  right: 20px;
-  top: 80px;
 }
 
 .bottom {

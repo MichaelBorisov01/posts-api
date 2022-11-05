@@ -34,10 +34,28 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
           <v-btn @click="cancel">
             Отмена
           </v-btn>
+          <v-spacer></v-spacer>
+          <v-slide-x-reverse-transition>
+            <v-tooltip
+                v-if="formHasErrors"
+                left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    icon
+                    class="my-0"
+                    v-bind="attrs"
+                    @click="resetForm"
+                    v-on="on"
+                >
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </template>
+              <span>Обновить форму</span>
+            </v-tooltip>
+          </v-slide-x-reverse-transition>
           <v-btn @click="createPost"
           >Готово
           </v-btn>
@@ -51,6 +69,7 @@
 export default {
   data() {
     return {
+      formHasErrors: false,
       dialog: false,
       post: {
         title: 'Мой пост',
@@ -65,11 +84,12 @@ export default {
   methods: {
     createPost() {
       if (this.$refs.form.validate()) {
+        this.formHasErrors = false
         this.dialog = false
         this.post.id = Date.now()
         this.$emit('create', this.post)
         this.clear()
-      }
+      } else this.formHasErrors = true
     },
 
     cancel() {
@@ -80,8 +100,13 @@ export default {
     clear() {
       this.post = {
         title: 'Мой пост',
-        body: ' ',
+        body: '',
       }
+    },
+
+    resetForm() {
+      this.$refs.form.reset()
+      this.formHasErrors = false
     }
   },
 }

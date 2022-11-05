@@ -55,15 +55,32 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-spacer></v-spacer>
         <v-btn @click="cancel">
           Отмена
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-slide-x-reverse-transition>
+          <v-tooltip
+              v-if="formHasErrors"
+              left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  icon
+                  class="my-0"
+                  v-bind="attrs"
+                  @click="resetForm"
+                  v-on="on"
+              >
+                <v-icon>mdi-refresh</v-icon>
+              </v-btn>
+            </template>
+            <span>Обновить форму</span>
+          </v-tooltip>
+        </v-slide-x-reverse-transition>
         <v-btn @click="createUser"
         >Готово
         </v-btn>
       </v-card-actions>
-
     </v-card>
   </v-dialog>
 </template>
@@ -72,6 +89,7 @@
 export default {
   data() {
     return {
+      formHasErrors: false,
       dialog: false,
       user: {
         name: '',
@@ -93,20 +111,20 @@ export default {
         phone: value => {
           const pattern = /^\d{10}$/
           return pattern.test(value) || 'Неправильный номер телефона'
-        }
+        },
       },
     }
   },
 
   methods: {
     createUser() {
-
       if (this.$refs.form.validate()) {
+        this.formHasErrors = false
         this.dialog = false
         this.user.id = Date.now()
         this.$emit('create', this.user)
         this.clear()
-      }
+      } else this.formHasErrors = true
     },
 
     cancel() {
@@ -116,12 +134,17 @@ export default {
 
     clear() {
       this.user = {
-        name: ' ',
+        name: '',
         username: '',
-        email: ' ',
-        phone: ' ',
+        email: '',
+        phone: '',
         website: ''
       }
+    },
+
+    resetForm() {
+      this.$refs.form.reset()
+      this.formHasErrors = false
     }
   },
 }

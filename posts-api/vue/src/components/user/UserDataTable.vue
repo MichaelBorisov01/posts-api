@@ -8,11 +8,6 @@
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Пользователи</v-toolbar-title>
-        <v-divider
-            class="mx-4"
-            inset
-            vertical
-        ></v-divider>
         <v-spacer></v-spacer>
         <user-form @create="createUser"/>
       </v-toolbar>
@@ -51,7 +46,7 @@ export default {
       createUser: 'post/createUser'
     }),
 
-    deleteItem (item) {
+    deleteItem(item) {
       const index = this.users.indexOf(item)
       confirm('Вы уверены, что хотите удалить этого пользователя?') && this.users.splice(index, 1)
     },

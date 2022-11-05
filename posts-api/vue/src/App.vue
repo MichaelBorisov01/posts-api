@@ -9,7 +9,6 @@
             solo
             dense
             rounded
-            clearable
             prepend-inner-icon="mdi-magnify"
             v-model="searchQuery"
             @input="setSearchQuery"

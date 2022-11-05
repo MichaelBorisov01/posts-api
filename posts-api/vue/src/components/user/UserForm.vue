@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <v-dialog width="500" v-model="dialog">
+    <v-dialog width="350" v-model="dialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
             class="create-btn"
@@ -9,16 +8,18 @@
         >
           Создать пользователя
         </v-btn>
+
       </template>
       <v-card>
         <v-card-title>
           <h3>Создание пользователя</h3>
         </v-card-title>
-        <v-card-actions>
+
+        <v-card-text>
           <v-form
+              id="form"
               ref="form"
               lazy-validation
-              style="width: 500px"
           >
             <v-text-field
                 class="text-field"
@@ -48,16 +49,21 @@
                 v-model="user.website"
                 label="Website"
             />
-            <v-btn
-                class="done-btn"
-                @click="createUser"
-            >Готово
-            </v-btn>
           </v-form>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="cancel">
+            Отмена
+          </v-btn>
+          <v-btn @click="createUser"
+          >Готово
+          </v-btn>
         </v-card-actions>
+
       </v-card>
     </v-dialog>
-  </div>
 </template>
 
 <script>
@@ -80,17 +86,27 @@ export default {
 
   methods: {
     createUser() {
+
       if (this.$refs.form.validate()) {
         this.dialog = false
         this.user.id = Date.now()
         this.$emit('create', this.user)
-        this.user = {
-          name: '',
-          username: '',
-          email: '',
-          phone: '',
-          website: ''
-        }
+        this.clear()
+      }
+    },
+
+    cancel() {
+      this.dialog = false
+      this.clear()
+    },
+
+    clear() {
+      this.user = {
+        name: ' ',
+        username: '',
+        email: ' ',
+        phone: ' ',
+        website: ''
       }
     }
   },

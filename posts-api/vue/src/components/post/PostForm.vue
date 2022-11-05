@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog width="500" v-model="dialog">
+    <v-dialog width="350" v-model="dialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
             class="create-btn"
@@ -14,11 +14,10 @@
         <v-card-title>
           <h3>Создание поста</h3>
         </v-card-title>
-        <v-card-actions>
+        <v-card-text>
           <v-form
               ref="form"
               lazy-validation
-              style="width: 500px"
           >
             <v-text-field
                 class="text-field"
@@ -32,12 +31,16 @@
                 label="Описание"
                 :rules="[rules.required]"
             />
-            <v-btn
-                class="done-btn"
-                @click="createPost"
-            >Готово
-            </v-btn>
           </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="cancel">
+            Отмена
+          </v-btn>
+          <v-btn @click="createPost"
+          >Готово
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -65,10 +68,19 @@ export default {
         this.dialog = false
         this.post.id = Date.now()
         this.$emit('create', this.post)
-        this.post = {
-          title: '',
-          body: '',
-        }
+        this.clear()
+      }
+    },
+
+    cancel() {
+      this.dialog = false
+      this.clear()
+    },
+
+    clear() {
+      this.post = {
+        title: 'Мой пост',
+        body: ' ',
       }
     }
   },

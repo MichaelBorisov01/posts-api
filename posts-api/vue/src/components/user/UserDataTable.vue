@@ -3,6 +3,7 @@
       :headers="headers"
       :items="users"
       item-key="name"
+      :search="searchQuery"
       class="elevation-2"
   >
     <template v-slot:top>
@@ -55,6 +56,7 @@ export default {
   computed: {
     ...mapState({
       users: state => state.post.users,
+      searchQuery: state => state.post.searchQuery,
     }),
 
     headers() {

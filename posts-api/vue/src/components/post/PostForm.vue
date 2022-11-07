@@ -73,7 +73,7 @@ export default {
       dialog: false,
       post: {
         title: 'Мой пост',
-        body: '',
+        body: ' ',
       },
       rules: {
         required: value => !!value || 'Обязательное поле',

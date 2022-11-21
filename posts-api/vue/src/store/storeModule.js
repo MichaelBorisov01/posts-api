@@ -8,7 +8,6 @@ export const storeModule = {
         isPostLoading: false,
         totalPages: 0,
         page: 1,
-        limitUser: 9,
         limitPost: 10,
         selectedSort: '',
         selectedSortId: Number,
@@ -69,6 +68,8 @@ export const storeModule = {
     },
     actions: {
         async fetchPosts({state, commit}) {
+
+
             try {
                 commit('setLoading', true)
                 const client = new ApolloClient({
@@ -76,23 +77,30 @@ export const storeModule = {
                 });
                 client.query({
                     query: gql`
-  query (
-  $options: PageQueryOptions,
-) {
-  posts(options: $options) {
-    data {
-      id
-      title
-      body
-    }
-  }
-}
-`
-                }).then((result) => commit('setPosts', result.data.posts.data))
-                //commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitPost))
-                //commit('setPosts', response.data)
-                //console.log(client)
-                return state.posts
+                        query($options: PageQueryOptions) {
+                            posts(options: $options) {
+                                data {
+                                    id
+                                    title
+                                    body
+                                }
+                            }
+                        }
+                    `,
+                    variables:
+                        {
+                            "options": {
+                                "paginate": {
+                                    "page": state.page,
+                                    "limit": state.limitPost
+                                }
+                            }
+                        }
+
+                }).then((result) => {
+                    commit('setPosts', result.data.posts.data)
+                    commit('setTotalPages', Math.ceil(Array.from(result.data.posts.data).length / state.limitPost))
+                })
             } catch (e) {
                 alert('Ошибка')
             } finally {
@@ -100,18 +108,10 @@ export const storeModule = {
             }
         },
 
-        async fetchUsers({state, commit}) {
+        async fetchUsers({commit}) {
             try {
-                const response = await axios.get('https://jsonplaceholder.typicode.com/users', {
-                    params: {
-                        _page: state.page,
-                        _limit: state.limit
-                    }
-                })
-                commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitUser))
-                commit('setUsers', response.data)
-                console.log(response.data)
-                return Array.from(response.data)
+                const response = await axios.get('https://jsonplaceholder.typicode.com/users')
+                commit('setUsers', Array.from(response.data))
             } catch (e) {
                 alert('Ошибка')
             }

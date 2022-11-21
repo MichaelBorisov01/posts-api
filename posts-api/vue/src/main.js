@@ -5,7 +5,6 @@ import AppPost from './pages/Posts.vue'
 import AppUser from './pages/Users.vue'
 import store from './store'
 import vuetify from './plugins/vuetify'
-//import VueApollo from 'vue-apollo'
 
 
 Vue.use(VueRouter)

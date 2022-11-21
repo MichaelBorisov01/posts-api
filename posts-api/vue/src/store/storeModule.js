@@ -1,4 +1,3 @@
-import axios from "axios";
 import ApolloClient, {gql} from 'apollo-boost';
 
 export const storeModule = {
@@ -6,7 +5,6 @@ export const storeModule = {
         users: [],
         posts: [],
         isPostLoading: false,
-        totalPages: 0,
         page: 1,
         limitPost: 10,
         selectedSort: '',
@@ -68,10 +66,8 @@ export const storeModule = {
     },
     actions: {
         async fetchPosts({state, commit}) {
-
-
             try {
-                commit('setLoading', true)
+                //commit('setLoading', true)
                 const client = new ApolloClient({
                     uri: 'https://graphqlzero.almansi.me/api'
                 });
@@ -96,7 +92,6 @@ export const storeModule = {
                                 }
                             }
                         }
-
                 }).then((result) => {
                     commit('setPosts', result.data.posts.data)
                     commit('setTotalPages', Math.ceil(Array.from(result.data.posts.data).length / state.limitPost))
@@ -110,8 +105,26 @@ export const storeModule = {
 
         async fetchUsers({commit}) {
             try {
-                const response = await axios.get('https://jsonplaceholder.typicode.com/users')
-                commit('setUsers', Array.from(response.data))
+                const client = new ApolloClient({
+                    uri: 'https://graphqlzero.almansi.me/api'
+                });
+                client.query({
+                    query: gql`
+                        query {
+                            users {
+                                data {
+                                    name
+                                    username
+                                    email
+                                    phone
+                                    website
+                                }
+                            }
+                        }
+                    `
+                }).then((result) => {
+                    commit('setUsers', result.data.users.data)
+                })
             } catch (e) {
                 alert('Ошибка')
             }

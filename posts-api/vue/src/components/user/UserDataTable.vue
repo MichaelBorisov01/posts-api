@@ -31,13 +31,6 @@ import UserForm from "@/components/user/UserForm";
 export default {
   components: {UserForm},
 
-  props: {
-    users: {
-      type: Array,
-      required: true
-    }
-  },
-
   methods: {
     ...mapMutations({
       setSearchQuery: 'post/setSearchQuery',

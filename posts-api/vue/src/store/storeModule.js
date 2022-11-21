@@ -1,4 +1,5 @@
 import axios from "axios";
+import ApolloClient, {gql} from 'apollo-boost';
 
 export const storeModule = {
     state: () => ({
@@ -70,15 +71,28 @@ export const storeModule = {
         async fetchPosts({state, commit}) {
             try {
                 commit('setLoading', true)
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-                    params: {
-                        _page: state.page,
-                        _limit: state.limit
-                    }
-                })
-                commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitPost))
-                commit('setPosts', response.data)
-                return response.data
+                const client = new ApolloClient({
+                    uri: 'https://graphqlzero.almansi.me/api'
+                });
+                client.query({
+                    query: gql`
+  query (
+  $options: PageQueryOptions,
+) {
+  posts(options: $options) {
+    data {
+      id
+      title
+      body
+    }
+  }
+}
+`
+                }).then((result) => commit('setPosts', result.data.posts.data))
+                //commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitPost))
+                //commit('setPosts', response.data)
+                //console.log(client)
+                return state.posts
             } catch (e) {
                 alert('Ошибка')
             } finally {
@@ -96,6 +110,7 @@ export const storeModule = {
                 })
                 commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limitUser))
                 commit('setUsers', response.data)
+                console.log(response.data)
                 return Array.from(response.data)
             } catch (e) {
                 alert('Ошибка')

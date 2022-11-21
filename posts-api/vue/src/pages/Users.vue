@@ -13,12 +13,6 @@ import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 export default {
   components: {UserDataTable},
 
-  data() {
-    return {
-
-    }
-  },
-
   methods: {
     ...mapMutations({
       setUsers: 'post/setUsers',

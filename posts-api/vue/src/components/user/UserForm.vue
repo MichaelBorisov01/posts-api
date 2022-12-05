@@ -1,11 +1,7 @@
 <template>
-  <v-dialog width="350" v-model="dialog">
+  <v-dialog width="350" v-model="dialog" data-testid="dialog">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn
-          class="create-btn"
-          v-bind="attrs"
-          v-on="on"
-      >
+      <v-btn class="create-btn" v-bind="attrs" v-on="on">
         Создать пользователя
       </v-btn>
 
@@ -16,69 +12,33 @@
       </v-card-title>
 
       <v-card-text>
-        <v-form
-            id="form"
-            ref="form"
-            lazy-validation
-        >
-          <v-text-field
-              class="text-field"
-              v-model="user.name"
-              label="Имя"
-              :rules="[rules.required, rules.name]"
-          />
-          <v-text-field
-              class="text-field"
-              v-model="user.username"
-              label="Username"
-          />
-          <v-text-field
-              class="text-field"
-              v-model="user.email"
-              label="E-mail"
-              :rules="[rules.required, rules.email]"
-          />
-          <v-text-field
-              class="text-field"
-              v-model="user.phone"
-              label="Телефон"
-              :rules="[rules.required, rules.phone]"
-              placeholder="9188509978"
-              counter="10"
-          />
-          <v-text-field
-              class="text-field"
-              v-model="user.website"
-              label="Website"
-          />
+        <v-form id="form" ref="form" lazy-validation>
+          <v-text-field class="text-field" v-model="user.name" label="Имя" :rules="[rules.required, rules.name]" />
+          <v-text-field class="text-field" v-model="user.username" label="Username" />
+          <v-text-field class="text-field" v-model="user.email" label="E-mail" :rules="[rules.required, rules.email]" />
+          <v-text-field class="text-field" v-model="user.phone" label="Телефон" :rules="[rules.required, rules.phone]"
+            placeholder="9188509978" counter="10" />
+          <v-text-field class="text-field" v-model="user.website" label="Website" />
         </v-form>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn @click="cancel">
+        <v-btn @click="cancel" data-testid="btn_close">
           Отмена
         </v-btn>
         <v-spacer></v-spacer>
         <v-slide-x-reverse-transition>
-          <v-tooltip
-              v-if="formHasErrors"
-              left>
+          <v-tooltip v-if="formHasErrors" left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  icon
-                  class="my-0"
-                  v-bind="attrs"
-                  @click="resetForm"
-                  v-on="on"
-              >
+              <v-btn icon class="my-0" v-bind="attrs" @click="resetForm" v-on="on">
                 <v-icon>mdi-refresh</v-icon>
               </v-btn>
             </template>
             <span>Обновить форму</span>
           </v-tooltip>
         </v-slide-x-reverse-transition>
-        <v-btn @click="createUser"
-        >Готово
+        <v-btn @click="createUser">
+          Готово
         </v-btn>
       </v-card-actions>
     </v-card>

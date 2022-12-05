@@ -1,29 +1,22 @@
 <template>
   <div>
-
     <transition-group name="post-list">
-      <post-item
-          v-for="post in posts"
-          :post="post"
-          :key="post.id"
-          @remove="$emit('remove', post)"
-      />
+      <post-item v-for="post in posts" :post="post" :key="post.id" @remove="$emit('remove', post)" />
     </transition-group>
-
   </div>
 </template>
 
 <script>
-import PostItem from "@/components/post/PostItem";
+import PostItem from '@/components/post/PostItem.vue'
 
 export default {
-  components: {PostItem},
+  components: { PostItem },
   props: {
     posts: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 

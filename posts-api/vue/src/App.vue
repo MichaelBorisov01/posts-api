@@ -69,7 +69,6 @@ export default {
     ...mapState({
       items: state => state.post.items,
       searchQuery: state => state.post.searchQuery,
-      posts: state => state.post.posts
     }),
   },
 }

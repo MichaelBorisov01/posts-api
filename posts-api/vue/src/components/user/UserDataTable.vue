@@ -1,23 +1,14 @@
 <template>
-  <v-data-table
-      :headers="headers"
-      :items="users"
-      item-key="name"
-      :search="searchQuery"
-      class="elevation-2"
-  >
+  <v-data-table :headers="headers" :items="users" item-key="name" :search="searchQuery" class="elevation-2">
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Пользователи</v-toolbar-title>
         <v-spacer></v-spacer>
-        <user-form @create="createUser"/>
+        <user-form @create="createUser" />
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon
-          small
-          @click="deleteItem(item)"
-      >
+      <v-icon small @click="deleteItem(item)">
         mdi-delete
       </v-icon>
     </template>
@@ -25,11 +16,11 @@
 </template>
 
 <script>
-import {mapActions, mapMutations, mapState} from "vuex";
-import UserForm from "@/components/user/UserForm";
+import { mapActions, mapMutations, mapState } from "vuex";
+import UserForm from "@/components/user/UserForm.vue";
 
 export default {
-  components: {UserForm},
+  components: { UserForm },
 
   methods: {
     ...mapMutations({
@@ -54,12 +45,12 @@ export default {
 
     headers() {
       return [
-        {text: 'Name', align: 'start', value: 'name'},
-        {text: 'Username', value: 'username'},
-        {text: 'Email', value: 'email'},
-        {text: 'Phone', value: 'phone'},
-        {text: 'Website', value: 'website'},
-        {text: 'Действия', value: 'actions', sortable: false},
+        { text: 'Name', align: 'start', value: 'name' },
+        { text: 'Username', value: 'username' },
+        { text: 'Email', value: 'email' },
+        { text: 'Phone', value: 'phone' },
+        { text: 'Website', value: 'website' },
+        { text: 'Действия', value: 'actions', sortable: false },
       ]
     },
   },

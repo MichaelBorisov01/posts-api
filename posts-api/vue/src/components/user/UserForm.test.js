@@ -14,7 +14,7 @@ test('Отображение названия формы', () => {
   screen.getByText('Создание пользователя')
 })
 
-test('Closing form when click "Отмена"', async () => {
+test('Closing form when keyDown "Esc" ', async () => {
   const body = 'Создание пользователя'
   const btn_cancel = 'Отмена'
 

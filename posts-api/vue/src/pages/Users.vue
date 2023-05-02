@@ -1,32 +1,21 @@
 <template>
-  <v-app>
-    <v-main>
-      <user-data-table :users="sortedAndSearchedPostsAndUsers[1]"/>
-    </v-main>
-  </v-app>
+  <user-data-table :users="sortedAndSearchedPostsAndUsers[1]" />
 </template>
 
 <script>
 import UserDataTable from "@/components/user/UserDataTable";
-import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  components: {UserDataTable},
+  components: { UserDataTable },
 
   methods: {
-    ...mapMutations({
-      setUsers: 'post/setUsers',
-    }),
     ...mapActions({
       fetchUsers: 'post/fetchUsers',
     }),
   },
 
   computed: {
-    ...mapState({
-      users: state => state.post.users,
-    }),
-
     ...mapGetters({
       sortedAndSearchedPostsAndUsers: 'post/sortedAndSearchedPostsAndUsers'
     })

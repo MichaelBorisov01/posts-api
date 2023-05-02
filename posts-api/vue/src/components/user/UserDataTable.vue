@@ -16,17 +16,14 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import UserForm from "@/components/user/UserForm.vue";
 
 export default {
   components: { UserForm },
 
   methods: {
-    ...mapMutations({
-      setSearchQuery: 'post/setSearchQuery',
-      setUsers: 'post/setUsers',
-    }),
+
     ...mapActions({
       createUser: 'post/createUser'
     }),
